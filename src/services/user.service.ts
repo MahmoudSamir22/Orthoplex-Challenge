@@ -116,6 +116,34 @@ class UserService implements IUserService {
       },
     });
   }
+
+  /**
+   * @desc    Get the count of verified users
+   * @returns {Promise<number>} A promise that resolves to a number.
+   * @throws  {Error} If the database operation fails.
+   */
+  async verifiedUserCount(): Promise<number> {
+    return prisma.user.count({
+      where: {
+        isVerified: true,
+        deletedAt: null,
+      },
+    });
+  }
+
+  /**
+   * @desc    Get the count of registered users
+   * @returns {Promise<number>} A promise that resolves to a number.
+   * @throws  {Error} If the database operation fails.
+   */
+  async registeredUserCount(): Promise<number> {
+    return prisma.user.count({
+      where: {
+        deletedAt: null,
+      },
+    });
+  }
+
   private async checkUserExistence(userId: string): Promise<IUser> {
     const user = await prisma.user.findUnique({
       where: {

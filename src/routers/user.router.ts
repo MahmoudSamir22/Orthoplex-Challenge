@@ -43,6 +43,6 @@ router
     joiMiddleWare(updateUserSchema),
     userController.updateUserDetails
   )
-  .delete(authorization(Roles.ADMIN), userController.deleteProfile);
+  .delete(authorization(Roles.ADMIN), userController.deleteUserDetails);
 
 export default router;

@@ -8,4 +8,6 @@ export default interface IUserService {
   updateUserDetails(id: string, data: Signup): Promise<IUser>;
   deleteUserDetails(id: string): Promise<IUser>;
   verifyUser(email: string): Promise<IUser>;
+  verifiedUserCount(): Promise<number>;
+  registeredUserCount(): Promise<number>;
 }

@@ -12,11 +12,21 @@ class UserController {
   async getUsersList(req: Request, res: Response, next: NextFunction) {
     try {
       const { data, pagination } = await userService.getUsersList(req.query);
+      const [verifiedUserCount, registeredUserCount] = await Promise.all([
+        userService.verifiedUserCount(),
+        userService.registeredUserCount(),
+      ]);
       response(res, 200, {
         status: true,
         message: "Users fetched successfully",
         pagination,
-        data,
+        data: {
+          users_counters: {
+            registered_users: registeredUserCount,
+            verified_users: verifiedUserCount,
+          },
+          users: data,
+        },
       });
     } catch (error) {
       next(error);
