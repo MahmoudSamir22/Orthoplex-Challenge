@@ -49,44 +49,6 @@ class AuthController {
     }
   }
 
-  /**
-   * @desc    Send Verification OTP to User Email
-   * @route   POST /api/auth/send-otp
-   * @access  Private
-   * @param   {Object} req - The request object.
-   */
-  async sendVerificationEmail(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { userId } = req as CustomRequest;
-      const code = await authService.sendVerificationEmail(userId);
-      response(res, 200, {
-        status: true,
-        message: "Verification code sent successfully",
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  /**
-   * @desc    Verify User
-   * @route   POST /api/auth/verify-user
-   * @access  Private
-   * @param   {Object} req - The request object. Expected body: { code }
-   */
-  async verifyUser(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { userId } = req as CustomRequest;
-      const user = await authService.verifyUser(userId, req.body.code);
-      response(res, 200, {
-        status: true,
-        message: "User verified successfully",
-        data: user,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
 }
 
 const authController = new AuthController();

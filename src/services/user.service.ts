@@ -93,6 +93,29 @@ class UserService implements IUserService {
     });
   }
 
+  /**
+   * @desc    Verify a user by email
+   * @returns {Promise<IUser>} A promise that resolves to an user object.
+   * @throws  {ApiError} If the user does not exist.
+   * @throws  {Error} If the database operation fails.
+   */
+  async verifyUser(email: string): Promise<IUser> {
+    const user = await prisma.user.findFirst({
+      where: {
+        email,
+        deletedAt: null,
+      },
+    });
+    if (!user) throw new ApiError("User does not exist", 404);
+    return prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        isVerified: true,
+      },
+    });
+  }
   private async checkUserExistence(userId: string): Promise<IUser> {
     const user = await prisma.user.findUnique({
       where: {

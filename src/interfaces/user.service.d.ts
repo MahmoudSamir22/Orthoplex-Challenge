@@ -7,4 +7,5 @@ export default interface IUserService {
   getUserDetails(id: string): Promise<IUser>;
   updateUserDetails(id: string, data: Signup): Promise<IUser>;
   deleteUserDetails(id: string): Promise<IUser>;
+  verifyUser(email: string): Promise<IUser>;
 }

@@ -33,3 +33,7 @@ export const getUsersQuerySchema = Joi.object<UserQuery>().keys({
         "Date must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ",
     }),
 });
+
+export const verifyUserSchema = Joi.object().keys({
+  email: Joi.string().email().required(),
+});

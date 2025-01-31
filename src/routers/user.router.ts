@@ -6,6 +6,7 @@ import {
   updateProfileSchema,
   getUsersQuerySchema,
   updateUserSchema,
+  verifyUserSchema
 } from "../validations/userValidation";
 import authorization from "../middlewares/authorization";
 import { Roles } from "../enums/Roles";
@@ -26,6 +27,13 @@ router
   .get(userController.getProfile)
   .patch(joiMiddleWare(updateProfileSchema), userController.updateProfile)
   .delete(userController.deleteProfile);
+
+router.patch(
+  "/verify-user",
+  authorization(Roles.ADMIN),
+  joiMiddleWare(verifyUserSchema),
+  userController.verifyUser
+);
 
 router
   .route("/:id")

@@ -1,5 +1,4 @@
 import Joi from "joi";
-
 import { Signup, Login } from "../types/auth";
 
 export const singupValidationSchema = Joi.object<Signup>().keys({
@@ -11,8 +10,4 @@ export const singupValidationSchema = Joi.object<Signup>().keys({
 export const loginValidationSchema = Joi.object<Login>().keys({
   email: Joi.string().email().required(),
   password: Joi.string().required(),
-});
-
-export const verifyUserSchema = Joi.object().keys({
-  code: Joi.string().required(),
 });

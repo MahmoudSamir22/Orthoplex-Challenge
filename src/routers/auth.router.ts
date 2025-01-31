@@ -4,9 +4,7 @@ import joiMiddleWare from "../middlewares/joiMiddleware";
 import {
   singupValidationSchema,
   loginValidationSchema,
-  verifyUserSchema,
 } from "../validations/authValidation";
-import auth from "../middlewares/auth";
 
 const router = Router();
 
@@ -22,13 +20,5 @@ router.post(
   authController.login
 );
 
-router.get("/send-otp", auth, authController.sendVerificationEmail);
-
-router.post(
-  "/verify-user",
-  auth,
-  joiMiddleWare(verifyUserSchema),
-  authController.verifyUser
-);
 
 export default router;
