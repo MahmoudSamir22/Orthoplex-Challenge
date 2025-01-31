@@ -18,7 +18,7 @@ router.get(
   "/",
   authorization(Roles.ADMIN),
   joiMiddleWare(getUsersQuerySchema, "query"),
-  userController.getProfile
+  userController.getUsersList
 );
 
 router

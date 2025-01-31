@@ -18,6 +18,16 @@ export const getUsersQuerySchema = Joi.object<UserQuery>().keys({
   name: Joi.string().min(3).max(50),
   email: Joi.string(),
   isVerified: Joi.boolean(),
-  createdAt_from: Joi.date(),
-  createdAt_to: Joi.date(),
+  createdAt_from: Joi.string()
+    .regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/)
+    .messages({
+      "string.pattern.base":
+        "Date must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ",
+    }),
+  createdAt_to: Joi.string()
+    .regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/)
+    .messages({
+      "string.pattern.base":
+        "Date must be in the ISO 8601 format YYYY-MM-DDTHH:mm:ss.sssZ",
+    }),
 });

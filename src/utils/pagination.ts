@@ -14,7 +14,7 @@ export const paginate = async (model: string, customFilter: any = {}, page: numb
   const total = await prisma[model].count({ where });
   return {
     pagination: {
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(total / limit) | 1,
       totalItems: total,
       page: +page,
       limit: +limit,
