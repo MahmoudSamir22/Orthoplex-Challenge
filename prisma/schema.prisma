@@ -23,15 +23,7 @@ model User {
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   isVerified Boolean     @default(false)
-  User_Codes User_Codes?
 
   @@unique([email, deletedAt])
 }
 
-model User_Codes {
-  userId               String    @unique
-  verify_email_code    String?
-  verify_email_expires DateTime?
-
-  User User @relation(fields: [userId], references: [id])
-}

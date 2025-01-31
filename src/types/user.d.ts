@@ -10,14 +10,6 @@ export default interface IUser {
   createdAt: Date;
   updatedAt: Date;
   isVerified: boolean;
-
-  User_Codes?: User_Codes | null;
-}
-
-interface User_Codes {
-  userId: string;
-  verify_email_code: string | null;
-  verify_email_expires: Date | null;
 }
 
 export type UserQuery = Partial<
