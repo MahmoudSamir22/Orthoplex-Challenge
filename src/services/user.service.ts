@@ -1,0 +1,108 @@
+import prisma from "../../prisma/client";
+import ApiError from "../utils/ApiError";
+import IUser, { UserQuery } from "../types/user";
+import IUserService from "../interfaces/user.service";
+import { PaginateType } from "../types/pagination";
+import { paginate } from "../utils/pagination";
+import { Signup } from "../types/auth";
+
+class UserService implements IUserService {
+  /**
+   * @desc    Get all users
+   * @returns {Promise<PaginateType<IUser>>} A promise that resolves to an array of user objects.
+   * @throws  {Error} If the database operation fails.
+   */
+  async getUsersList(query: UserQuery): Promise<PaginateType<IUser>> {
+    return paginate("user", {
+      where: {
+        deletedAt: null,
+        role: query.role,
+        name: query.name
+          ? {
+              contains: query.name,
+            }
+          : undefined,
+        email: query.email
+          ? {
+              contains: query.email,
+            }
+          : undefined,
+        // Query params is always string. Convert it to boolean if it exists
+        isVerified: query.isVerified ? query.isVerified == "true" : undefined,
+        createdAt:
+          query.createdAt_from || query.createdAt_to
+            ? {
+                gte: query.createdAt_from,
+                lte: query.createdAt_to,
+              }
+            : undefined,
+      },
+    });
+  }
+
+  /**
+   * @desc    Get a user by id
+   * @returns {Promise<IUser>} A promise that resolves to an user object.
+   * @throws  {ApiError} If the user does not exist.
+   * @throws  {Error} If the database operation fails.
+   */
+
+  async getProfile(userId: string): Promise<IUser> {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) throw new ApiError("User does not exist", 404);
+    return user;
+  }
+
+  /**
+   * @desc    Update a user by id
+   * @returns {Promise<IUser>} A promise that resolves to an user object.
+   * @throws  {ApiError} If the user does not exist.
+   * @throws  {Error} If the database operation fails.
+   */
+
+  async updateProfile(userId: string, data: Signup): Promise<IUser> {
+    await this.checkUserExistence(userId);
+    return prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data,
+    });
+  }
+
+  /**
+   * @desc    Delete a user by id
+   * @returns {Promise<IUser>} A promise that resolves to an user object.
+   * @throws  {ApiError} If the user does not exist.
+   * @throws  {Error} If the database operation fails.
+   */
+
+  async deleteProfile(userId: string): Promise<IUser> {
+    await this.checkUserExistence(userId);
+    return prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        deletedAt: new Date(),
+      },
+    });
+  }
+
+  private async checkUserExistence(userId: string): Promise<IUser> {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    if (!user) throw new ApiError("User does not exist", 404);
+    return user;
+  }
+}
+
+const userService = new UserService();
+export default userService;
