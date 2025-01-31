@@ -31,7 +31,7 @@ class UserController {
   async getProfile(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req as CustomRequest;
-      const user = await userService.getProfile(userId);
+      const user = await userService.getUserDetails(userId);
       response(res, 200, {
         status: true,
         message: "User fetched successfully",
@@ -50,7 +50,7 @@ class UserController {
   async updateProfile(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req as CustomRequest;
-      const user = await userService.updateProfile(userId, req.body);
+      const user = await userService.updateUserDetails(userId, req.body);
       response(res, 200, {
         status: true,
         message: "User updated successfully",
@@ -69,7 +69,7 @@ class UserController {
   async deleteProfile(req: Request, res: Response, next: NextFunction) {
     try {
       const { userId } = req as CustomRequest;
-      await userService.deleteProfile(userId);
+      await userService.deleteUserDetails(userId);
       response(res, 200, {
         status: true,
         message: "User deleted successfully",
@@ -86,7 +86,7 @@ class UserController {
    */
   async getUserDetails(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = await userService.getProfile(req.params.id);
+      const user = await userService.getUserDetails(req.params.id);
       response(res, 200, {
         status: true,
         message: "User fetched successfully",
@@ -104,7 +104,7 @@ class UserController {
    */
   async updateUserDetails(req: Request, res: Response, next: NextFunction) {
     try {
-      const user = await userService.updateProfile(req.params.id, req.body);
+      const user = await userService.updateUserDetails(req.params.id, req.body);
       response(res, 200, {
         status: true,
         message: "User updated successfully",
@@ -122,7 +122,7 @@ class UserController {
    */
   async deleteUserDetails(req: Request, res: Response, next: NextFunction) {
     try {
-      await userService.deleteProfile(req.params.id);
+      await userService.deleteUserDetails(req.params.id);
       response(res, 200, {
         status: true,
         message: "User deleted successfully",

@@ -47,7 +47,7 @@ class UserService implements IUserService {
    * @throws  {Error} If the database operation fails.
    */
 
-  async getProfile(userId: string): Promise<IUser> {
+  async getUserDetails(userId: string): Promise<IUser> {
     const user = await prisma.user.findUnique({
       where: {
         id: userId,
@@ -64,7 +64,7 @@ class UserService implements IUserService {
    * @throws  {Error} If the database operation fails.
    */
 
-  async updateProfile(userId: string, data: Signup): Promise<IUser> {
+  async updateUserDetails(userId: string, data: Signup): Promise<IUser> {
     await this.checkUserExistence(userId);
     return prisma.user.update({
       where: {
@@ -81,7 +81,7 @@ class UserService implements IUserService {
    * @throws  {Error} If the database operation fails.
    */
 
-  async deleteProfile(userId: string): Promise<IUser> {
+  async deleteUserDetails(userId: string): Promise<IUser> {
     await this.checkUserExistence(userId);
     return prisma.user.update({
       where: {
