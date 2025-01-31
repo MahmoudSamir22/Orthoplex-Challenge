@@ -38,8 +38,12 @@ class AuthService implements IAuthService {
     });
     if (!user || !(await bcrypt.compare(data.password, user.password)))
       throw new ApiError("Invalid email or password", 400);
-    if(user.isVerified === false) throw new ApiError("User is not verified", 400);
-    return user;
+    if (user.isVerified === false)
+      throw new ApiError("User is not verified", 400);
+    return await prisma.user.update({
+      where: { id: user.id },
+      data: { loginCount: user.loginCount + 1, lastLogin: new Date() },
+    });
   }
 
   /**

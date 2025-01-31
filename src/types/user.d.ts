@@ -10,6 +10,8 @@ export default interface IUser {
   createdAt: Date;
   updatedAt: Date;
   isVerified: boolean;
+  loginCount: number;
+  lastLogin: Date | null;
 }
 
 export type UserQuery = Partial<

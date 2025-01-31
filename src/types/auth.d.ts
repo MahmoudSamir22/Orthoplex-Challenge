@@ -8,6 +8,8 @@ export type Signup = Omit<
   | "deletedAt"
   | "isVerified"
   | "role"
+  | "loginCount"
+  | "lastLogin"
 >;
 
 export type Login = Pick<IUser, "email" | "password">;
