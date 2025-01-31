@@ -14,9 +14,24 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
-  role     String @default("USER")
+  id         String      @id @default(uuid())
+  name       String
+  email      String
+  password   String
+  role       String      @default("USER")
+  deletedAt  DateTime?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  isVerified Boolean     @default(false)
+  User_Codes User_Codes?
+
+  @@unique([email, deletedAt])
+}
+
+model User_Codes {
+  userId               String    @unique
+  verify_email_code    String?
+  verify_email_expires DateTime?
+
+  User User @relation(fields: [userId], references: [id])
 }

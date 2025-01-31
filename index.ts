@@ -2,6 +2,7 @@ import express from "express";
 import { config } from "dotenv";
 import router from "./src/routers";
 import cors from "cors";
+import globalErrorHandler from "./src/middlewares/errorMiddleware";
 
 config();
 
@@ -21,6 +22,8 @@ app.all("*", (req, res) => {
     message: `Endpoint not found: ${req.method} ${req.originalUrl}`,
   });
 });
+
+app.use(globalErrorHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
