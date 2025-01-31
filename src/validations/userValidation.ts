@@ -14,6 +14,8 @@ export const updateUserSchema = Joi.object<UpdateUser>().keys({
 });
 
 export const getUsersQuerySchema = Joi.object<UserQuery>().keys({
+  page: Joi.number().integer().min(1),
+  limit: Joi.number().integer().min(1).max(100),
   role: Joi.string().valid(...Object.values(Roles)),
   name: Joi.string().min(3).max(50),
   email: Joi.string(),

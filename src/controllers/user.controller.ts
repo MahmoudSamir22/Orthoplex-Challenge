@@ -7,7 +7,7 @@ class UserController {
   /**
    * @desc    Get list of users
    * @route   GET /api/users
-   * @access  Private
+   * @access  Private [Admin]
    */
   async getUsersList(req: Request, res: Response, next: NextFunction) {
     try {

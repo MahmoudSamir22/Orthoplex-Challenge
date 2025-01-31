@@ -37,7 +37,7 @@ class UserService implements IUserService {
               }
             : undefined,
       },
-    });
+    }, query.page, query.limit);
   }
 
   /**
