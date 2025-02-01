@@ -14,7 +14,7 @@ describe("User Service", () => {
     isVerified: true,
     role: "USER",
     loginCount: 0,
-    lastSeen: null,
+    lastSeen: new Date(),
   };
   describe("Get User Details", () => {
     test("should return user details", async () => {

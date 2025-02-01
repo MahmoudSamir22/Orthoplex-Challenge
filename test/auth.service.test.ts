@@ -16,7 +16,7 @@ describe("Auth Service", () => {
       isVerified: true,
       role: "USER",
       loginCount: 0,
-      lastSeen: null,
+      lastSeen: new Date(),
     };
     test("should signup new user ", async () => {
       const user: Signup = {
@@ -57,7 +57,7 @@ describe("Auth Service", () => {
       isVerified: true,
       role: "USER",
       loginCount: 0,
-      lastSeen: null,
+      lastSeen: new Date(),
     };
     test("should login user", async () => {
       const loginData: Login = {

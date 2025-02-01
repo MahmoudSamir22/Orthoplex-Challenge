@@ -31,6 +31,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     }
     (req as CustomRequest).userId = user.id;
     (req as CustomRequest).role = decoded.role;
+    // Track user last seen time on every request to the server
     await prisma.user.update({
       where: {
         id: user.id,

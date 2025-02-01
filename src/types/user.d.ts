@@ -11,7 +11,7 @@ export default interface IUser {
   updatedAt: Date;
   isVerified: boolean;
   loginCount: number;
-  lastSeen: Date | null;
+  lastSeen: Date;
 }
 
 export type UserQuery = Partial<
@@ -26,3 +26,5 @@ export type UserQuery = Partial<
 >;
 
 export type UpdateUser = Partial<Pick<IUser, "name" | "email" | "role">>;
+
+export type InactiveUsersQuery = Partial<QueryType & { lastSeen: Date }>;

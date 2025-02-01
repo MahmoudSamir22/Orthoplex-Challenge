@@ -1,7 +1,7 @@
 import { Router } from "express";
 import userReportsController from "../controllers/userReports.controller";
 import joiMiddleWare from "../middlewares/joiMiddleware";
-import { querySchema } from "../validations/userReportsValidation";
+import { querySchema, inactiveUsersSchema } from "../validations/userReportsValidation";
 import auth from "../middlewares/auth";
 import authorization from "../middlewares/authorization";
 import { Roles } from "../enums/Roles";
@@ -18,7 +18,7 @@ router.get(
 
 router.get(
   "/inactive-users",
-  joiMiddleWare(querySchema, "query"),
+  joiMiddleWare(inactiveUsersSchema, "query"),
   userReportsController.inactiveUsers
 );
 

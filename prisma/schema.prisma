@@ -24,7 +24,7 @@ model User {
   updatedAt  DateTime  @updatedAt
   isVerified Boolean   @default(false)
   loginCount Int       @default(0)
-  lastSeen   DateTime?
+  lastSeen   DateTime  @default(now())
 
   @@unique([email, deletedAt])
 }

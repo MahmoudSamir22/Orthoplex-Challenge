@@ -1,6 +1,7 @@
 import prisma from "../../prisma/client";
 import IUserReportsService from "../interfaces/userReports.service";
 import { QueryType } from "../types/query";
+import { InactiveUsersQuery } from "../types/user";
 import { paginate } from "../utils/pagination";
 
 class UserReportsService implements IUserReportsService {
@@ -20,12 +21,12 @@ class UserReportsService implements IUserReportsService {
     );
   }
 
-  async inactiveUsers(query: Partial<QueryType>) {
+  async inactiveUsers(query: InactiveUsersQuery) {
     return paginate("user", {
       where: {
         deletedAt: null,
-        lastLogin: {
-          lte: new Date(new Date().setDate(new Date().getDate() - 30)),
+        lastSeen: {
+          lte: query.lastSeen ?? new Date(Date.now() - 60 * 60 * 1000), // Default to 1 hour ago
         },
       },
     }, query.page, query.limit);
