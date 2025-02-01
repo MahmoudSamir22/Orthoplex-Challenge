@@ -14,7 +14,7 @@ describe("User Service", () => {
     isVerified: true,
     role: "USER",
     loginCount: 0,
-    lastLogin: null,
+    lastSeen: null,
   };
   describe("Get User Details", () => {
     test("should return user details", async () => {
@@ -132,7 +132,7 @@ describe("User Service", () => {
         updatedAt: new Date("2024-07-01T12:45:00Z"),
         isVerified: true,
         loginCount: 42,
-        lastLogin: new Date("2024-07-10T09:15:00Z"),
+        lastSeen: new Date("2024-07-10T09:15:00Z"),
       },
       {
         id: "5e6f7g8h",
@@ -146,7 +146,7 @@ describe("User Service", () => {
         updatedAt: new Date("2024-06-25T16:30:00Z"),
         isVerified: false,
         loginCount: 15,
-        lastLogin: new Date("2024-06-20T14:00:00Z"),
+        lastSeen: new Date("2024-06-20T14:00:00Z"),
       },
     ];
     test("should return list of users", async () => {

@@ -11,7 +11,7 @@ export default interface IUser {
   updatedAt: Date;
   isVerified: boolean;
   loginCount: number;
-  lastLogin: Date | null;
+  lastSeen: Date | null;
 }
 
 export type UserQuery = Partial<

@@ -9,7 +9,7 @@ export type Signup = Omit<
   | "isVerified"
   | "role"
   | "loginCount"
-  | "lastLogin"
+  | "lastSeen"
 >;
 
 export type Login = Pick<IUser, "email" | "password">;

@@ -42,7 +42,7 @@ class AuthService implements IAuthService {
       throw new ApiError("User is not verified", 400);
     return await prisma.user.update({
       where: { id: user.id },
-      data: { loginCount: user.loginCount + 1, lastLogin: new Date() },
+      data: { loginCount: user.loginCount + 1, lastSeen: new Date() },
     });
   }
 
