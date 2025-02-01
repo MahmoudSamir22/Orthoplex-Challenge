@@ -31,7 +31,14 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     }
     (req as CustomRequest).userId = user.id;
     (req as CustomRequest).role = decoded.role;
-
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        lastSeen: new Date(),
+      },
+    })
     next();
   } catch (error) {
     next(new ApiError('Invalid Token', 401));
