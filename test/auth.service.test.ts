@@ -16,7 +16,7 @@ describe("Auth Service", () => {
       isVerified: true,
       role: "USER",
       loginCount: 0,
-      lastLogin: null,
+      lastSeen: null,
     };
     test("should signup new user ", async () => {
       const user: Signup = {
@@ -57,7 +57,7 @@ describe("Auth Service", () => {
       isVerified: true,
       role: "USER",
       loginCount: 0,
-      lastLogin: null,
+      lastSeen: null,
     };
     test("should login user", async () => {
       const loginData: Login = {
@@ -68,12 +68,12 @@ describe("Auth Service", () => {
       prismaMock.user.update.mockResolvedValue({
         ...userResponse,
         loginCount: userResponse.loginCount + 1,
-        lastLogin: new Date(),
+        lastSeen: new Date(),
       });
       await expect(authService.login(loginData)).resolves.toEqual({
         ...userResponse,
         loginCount: 1,
-        lastLogin: expect.any(Date),
+        lastSeen: expect.any(Date),
       });
     });
     test("should not login user if email does not exist", async () => {
