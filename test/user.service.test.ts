@@ -118,7 +118,6 @@ describe("User Service", () => {
     });
   });
 
-
   describe("Users List", () => {
     const usersList: IUser[] = [
       {
