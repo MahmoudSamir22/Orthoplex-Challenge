@@ -3,7 +3,7 @@ import type { Config } from "jest";
 const config: Config = {
   preset: "ts-jest", // Use ts-jest for TypeScript
   testEnvironment: "node", // Use Node.js environment
-  testMatch: ["**/?(*.)+(spec|test).[tj]s?(x)"], // Look for test files
+  testMatch: ["**/?(*.)+(spec|test).ts?(x)"], // Look for TypeScript test files only
   moduleFileExtensions: ["ts", "js", "json", "node"], // File extensions to recognize
   globals: {
     "ts-jest": {
