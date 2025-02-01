@@ -87,7 +87,7 @@ To make it easy for you to test the API, you can use Postman to import the API c
    - Click **Add** and then **Close**.
 
 #### 2. **Import the Postman Collection**  
-   - Download the `.json` file [API Collection](./@docs/api-collection.json).
+   - Download the `.json` file [API Collection](./@docs).
    - In Postman, click on the **Import** button.
    - Select **Upload Files** and choose the `.json` collection file you just downloaded.
    - Click **Open**, and the collection will be imported into Postman.
