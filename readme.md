@@ -113,3 +113,12 @@ To make it easy for you to test the API, you can use Postman to import the API c
 - **Joi** – Validation library for user input.
 - **Jest** – Testing framework for writing unit and integration tests.
 - **MySQL** – Database server.
+
+## Admin Credentials
+
+For testing and development, you can use the following **admin credentials**. These credentials are necessary for performing administrative tasks such as creating, updating, or deleting users.  
+`NOTE:` This Account will be created after you run the server atleast once
+
+### Admin Credentials (For Development Purposes)
+- **Email**: `admin@email.com`
+- **Password**: `T3st_P@s$w0rd`

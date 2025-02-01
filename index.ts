@@ -3,8 +3,12 @@ import { config } from "dotenv";
 import router from "./src/routers";
 import cors from "cors";
 import globalErrorHandler from "./src/middlewares/errorMiddleware";
+import addAdminAccount from "./prisma/seeding/addAdminAccount";
 
 config();
+
+// Seed the database with an admin account
+addAdminAccount();
 
 const port = process.env.PORT || 3000;
 
