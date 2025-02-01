@@ -75,14 +75,21 @@ This project is a backend challenge for a backend developer position. It involve
 To make it easy for you to test the API, you can use Postman to import the API collection and create an environment for your local server.
 
 ### Steps:
+## Important Configuration
 
+**Before you begin testing the API, make sure to prefix the Env-URL with `/api`.**  
+This is a necessary configuration for correctly interacting with the API in Postman.
+
+For example:
+- Instead of `GET localhost:3000/users`, use `GET localhost:3000/api/users`
+- Instead of `POST localhost:3000/login`, use `POST localhost:3000/api/login`
 #### 1. **Create a Postman Environment**  
    - Open Postman.
    - In the top-left corner, click on the **Environment** dropdown and select **Manage Environments**.
    - Click on the **Add** button to create a new environment.
    - Name the environment (e.g., `Development API`).
    - Add the following variables:
-     - `{{URL}}` (this will represent your local server URL, e.g., `http://localhost:<Your_Fav_Port>/api`).
+     - `{{URL}}` (this will represent your local server URL, e.g., `http://localhost:<Your_Fav_Port>/api`).  
         `NOTE`: Use same port as the PORT in `.env` file
    - Click **Add** and then **Close**.
 
