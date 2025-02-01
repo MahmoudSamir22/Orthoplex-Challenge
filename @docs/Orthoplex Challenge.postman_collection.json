@@ -1,0 +1,1218 @@
+{
+	"info": {
+		"_postman_id": "57a76668-1f52-46d8-8032-02b7bc8b86da",
+		"name": "Orthoplex Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12652392"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john_doe@email.com\",\r\n    \"password\": \"T3st_P@s$w0rd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/signup",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Signup With Valid Data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"new_john_doe@email.com\",\r\n    \"password\": \"T3st_P@s$w0rd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/signup",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User created successfully\",\n    \"data\": {\n        \"id\": \"5ab943b2-8281-4bbd-aca1-df6562568cd3\",\n        \"name\": \"John Doe\",\n        \"email\": \"new_john_doe@email.com\",\n        \"password\": \"$2b$10$K4qeucDAzXbL83izq8u.Vuf2S9PsZlK.MJX5KwZEgotVcg6IznDbK\",\n        \"role\": \"USER\",\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-02-01T16:13:39.818Z\",\n        \"updatedAt\": \"2025-02-01T16:13:39.818Z\",\n        \"isVerified\": false,\n        \"loginCount\": 0,\n        \"lastSeen\": \"2025-02-01T16:13:39.818Z\"\n    }\n}"
+						},
+						{
+							"name": "Signup With Existed Email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john_doe@email.com\",\r\n    \"password\": \"T3st_P@s$w0rd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/signup",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Email is already in use\"\n}"
+						},
+						{
+							"name": "Signup With Invalid Data",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"email\": \"john_doe\",\r\n    \"password\": \"T3st_P@s$w0rd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/signup",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"\\\"email\\\" must be a valid email\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(`${pm.response.json().data.user.role}_JWT`, pm.response.json().data.accessToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"john_doe@email.com\",\r\n    \"password\": \"T3st_P@s$w0rd\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successfull Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"john_doe@email.com\",\r\n    \"password\": \"T3st_P@s$w0rd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/login",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk5YWFkNDExLWVkNjEtNDRiNy05YWEzLTc0MTNmMWE1NjZjMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczODQyNDc2MywiZXhwIjoxNzM4NDI4MzYzfQ.26cAR8aKZJiSNOMeIXSqGp560BuZA91962r_rFapkFw\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk5YWFkNDExLWVkNjEtNDRiNy05YWEzLTc0MTNmMWE1NjZjMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTczODQyNDc2MywiZXhwIjoxNzM5MDI5NTYzfQ.3AA2NDgI5lI953QWaKJ0fVjACG7As6nNwV3dM1mYQ4o\",\n        \"user\": {\n            \"id\": \"99aad411-ed61-44b7-9aa3-7413f1a566c1\",\n            \"name\": \"John Doe\",\n            \"email\": \"john_doe@email.com\",\n            \"password\": \"$2b$10$3ylM..ydJmNajji8BtKoBuxJr4XeQrij1kgYjxorUMHdZ4iYzyD6e\",\n            \"role\": \"ADMIN\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2025-01-31T22:02:06.342Z\",\n            \"updatedAt\": \"2025-02-01T15:46:03.675Z\",\n            \"isVerified\": true,\n            \"loginCount\": 4,\n            \"lastSeen\": \"2025-02-01T15:46:03.674Z\"\n        }\n    }\n}"
+						},
+						{
+							"name": "Wrong Password Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"john_doe@email.com\",\r\n    \"password\": \"Wrong_One\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/login",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Invalid email or password\"\n}"
+						},
+						{
+							"name": "Wrong Email Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"none@email.com\",\r\n    \"password\": \"T3st_P@s$w0rd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/auth/login",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Invalid email or password\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users?page=1&limit=50",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Bruce Wayne",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "joh",
+									"disabled": true
+								},
+								{
+									"key": "isVerified",
+									"value": "false",
+									"disabled": true
+								},
+								{
+									"key": "createdAt_from",
+									"value": "2025-01-30T00:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "createdAt_to",
+									"value": "2025-02-20T00:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "USER",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Users With Invalid Filter Data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users?role=Dummy Role&page=1&limit=50",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "role",
+											"value": "Dummy Role"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"\\\"role\\\" must be one of [ADMIN, USER]\"\n}"
+						},
+						{
+							"name": "Get Users With Correct Filters",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users?role=USER&page=1&limit=50",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "role",
+											"value": "USER"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Users fetched successfully\",\n    \"pagination\": {\n        \"total_pages\": 1,\n        \"total_records\": 1,\n        \"page\": 1,\n        \"limit\": 50\n    },\n    \"data\": {\n        \"users_counters\": {\n            \"registered_users\": 3,\n            \"verified_users\": 3\n        },\n        \"users\": [\n            {\n                \"id\": \"5ab943b2-8281-4bbd-aca1-df6562568cd3\",\n                \"name\": \"John Doe\",\n                \"email\": \"new_john_doe@email.com\",\n                \"password\": \"$2b$10$K4qeucDAzXbL83izq8u.Vuf2S9PsZlK.MJX5KwZEgotVcg6IznDbK\",\n                \"role\": \"USER\",\n                \"deletedAt\": null,\n                \"createdAt\": \"2025-02-01T16:13:39.818Z\",\n                \"updatedAt\": \"2025-02-01T16:15:42.976Z\",\n                \"isVerified\": true,\n                \"loginCount\": 0,\n                \"lastSeen\": \"2025-02-01T16:13:39.818Z\"\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "Get Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users?page=1&limit=50",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Users fetched successfully\",\n    \"pagination\": {\n        \"total_pages\": 1,\n        \"total_records\": 3,\n        \"page\": 1,\n        \"limit\": 50\n    },\n    \"data\": {\n        \"users_counters\": {\n            \"registered_users\": 3,\n            \"verified_users\": 3\n        },\n        \"users\": [\n            {\n                \"id\": \"5ab943b2-8281-4bbd-aca1-df6562568cd3\",\n                \"name\": \"John Doe\",\n                \"email\": \"new_john_doe@email.com\",\n                \"password\": \"$2b$10$K4qeucDAzXbL83izq8u.Vuf2S9PsZlK.MJX5KwZEgotVcg6IznDbK\",\n                \"role\": \"USER\",\n                \"deletedAt\": null,\n                \"createdAt\": \"2025-02-01T16:13:39.818Z\",\n                \"updatedAt\": \"2025-02-01T16:15:42.976Z\",\n                \"isVerified\": true,\n                \"loginCount\": 0,\n                \"lastSeen\": \"2025-02-01T16:13:39.818Z\"\n            },\n            {\n                \"id\": \"8e0d4f21-30fd-465e-b30f-265144f8dd40\",\n                \"name\": \"Jane\",\n                \"email\": \"jane@email.com\",\n                \"password\": \"$2b$10$E3snV5u4LTgGahFLYGPcw.OcOB6Z3FfmdQIjOWjuAhqAN0Ua1/Kxy\",\n                \"role\": \"ADMIN\",\n                \"deletedAt\": null,\n                \"createdAt\": \"2025-01-31T14:43:51.056Z\",\n                \"updatedAt\": \"2025-02-01T16:04:56.684Z\",\n                \"isVerified\": true,\n                \"loginCount\": 0,\n                \"lastSeen\": \"2025-02-01T14:49:37.484Z\"\n            },\n            {\n                \"id\": \"99aad411-ed61-44b7-9aa3-7413f1a566c1\",\n                \"name\": \"John Doe\",\n                \"email\": \"john_doe@email.com\",\n                \"password\": \"$2b$10$3ylM..ydJmNajji8BtKoBuxJr4XeQrij1kgYjxorUMHdZ4iYzyD6e\",\n                \"role\": \"ADMIN\",\n                \"deletedAt\": null,\n                \"createdAt\": \"2025-01-31T22:02:06.342Z\",\n                \"updatedAt\": \"2025-02-01T16:39:02.419Z\",\n                \"isVerified\": true,\n                \"loginCount\": 7,\n                \"lastSeen\": \"2025-02-01T16:39:02.418Z\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jane\",\r\n    \"email\": \"jane@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{USER_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/profile",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get User Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5ab943b2-8281-4bbd-aca1-df6562568cd3"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User fetched successfully\",\n    \"data\": {\n        \"id\": \"5ab943b2-8281-4bbd-aca1-df6562568cd3\",\n        \"name\": \"John Doe\",\n        \"email\": \"new_john_doe@email.com\",\n        \"password\": \"$2b$10$K4qeucDAzXbL83izq8u.Vuf2S9PsZlK.MJX5KwZEgotVcg6IznDbK\",\n        \"role\": \"USER\",\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-02-01T16:13:39.818Z\",\n        \"updatedAt\": \"2025-02-01T16:15:42.976Z\",\n        \"isVerified\": true,\n        \"loginCount\": 0,\n        \"lastSeen\": \"2025-02-01T16:13:39.818Z\"\n    }\n}"
+						},
+						{
+							"name": "User Not Found Error",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6e"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"User does not exist\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update User Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jane\",\r\n    \"email\": \"jane@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User Not Found Error",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Jane\",\r\n    \"email\": \"jane@email.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/users/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"status\": false,\r\n    \"message\": \"User does not exist\"\r\n}"
+						},
+						{
+							"name": "Update User Details",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Jane\",\r\n    \"email\": \"jane@email.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/users/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User updated successfully\",\n    \"data\": {\n        \"id\": \"78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c\",\n        \"name\": \"Jane\",\n        \"email\": \"jane@email.com\",\n        \"password\": \"$2b$10$xYGgK3Oh0m3tMnL5tDDJ/OKjEAxEwHg9nyII3tMgdWfK6QOjHDHvy\",\n        \"role\": \"USER\",\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-01-31T23:09:21.685Z\",\n        \"updatedAt\": \"2025-02-01T16:35:06.387Z\",\n        \"isVerified\": true,\n        \"loginCount\": 0,\n        \"lastSeen\": \"2025-02-01T15:49:37.484Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete User Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/:id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "User Not Found Error",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6e"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"User does not exist\"\n}"
+						},
+						{
+							"name": "Delete User Details",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users/:id",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"status\": true,\r\n    \"message\": \"User deleted successfully\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Verify User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"new_john_doe@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/verify-user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"verify-user"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Verify User",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"new_john_doe@email.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/users/verify-user",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										"verify-user"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User verified successfully\",\n    \"data\": {\n        \"id\": \"5ab943b2-8281-4bbd-aca1-df6562568cd3\",\n        \"name\": \"John Doe\",\n        \"email\": \"new_john_doe@email.com\",\n        \"password\": \"$2b$10$K4qeucDAzXbL83izq8u.Vuf2S9PsZlK.MJX5KwZEgotVcg6IznDbK\",\n        \"role\": \"USER\",\n        \"deletedAt\": null,\n        \"createdAt\": \"2025-02-01T16:13:39.818Z\",\n        \"updatedAt\": \"2025-02-01T16:14:41.044Z\",\n        \"isVerified\": true,\n        \"loginCount\": 0,\n        \"lastSeen\": \"2025-02-01T16:13:39.818Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Users Reports",
+			"item": [
+				{
+					"name": "Top Login Frequent Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users-reports/top-login-frequency",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users-reports",
+								"top-login-frequency"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Top Login Frequent Users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users-reports/top-login-frequency",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users-reports",
+										"top-login-frequency"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "5",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Users fetched successfully\",\n    \"pagination\": {\n        \"total_pages\": 1,\n        \"total_records\": 3,\n        \"page\": 1,\n        \"limit\": 3\n    },\n    \"data\": [\n        {\n            \"id\": \"99aad411-ed61-44b7-9aa3-7413f1a566c1\",\n            \"name\": \"John Doe\",\n            \"email\": \"john_doe@email.com\",\n            \"password\": \"$2b$10$3ylM..ydJmNajji8BtKoBuxJr4XeQrij1kgYjxorUMHdZ4iYzyD6e\",\n            \"role\": \"ADMIN\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2025-01-31T22:02:06.342Z\",\n            \"updatedAt\": \"2025-02-01T16:10:09.798Z\",\n            \"isVerified\": true,\n            \"loginCount\": 7,\n            \"lastSeen\": \"2025-02-01T16:10:09.796Z\"\n        },\n        {\n            \"id\": \"78c66e2e-3c5d-40d0-ad55-ee12c0fb4d6c\",\n            \"name\": \"Jane\",\n            \"email\": \"jane1@email.com\",\n            \"password\": \"$2b$10$xYGgK3Oh0m3tMnL5tDDJ/OKjEAxEwHg9nyII3tMgdWfK6QOjHDHvy\",\n            \"role\": \"USER\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2025-01-31T23:09:21.685Z\",\n            \"updatedAt\": \"2025-02-01T16:05:05.731Z\",\n            \"isVerified\": true,\n            \"loginCount\": 0,\n            \"lastSeen\": \"2025-02-01T15:49:37.484Z\"\n        },\n        {\n            \"id\": \"8e0d4f21-30fd-465e-b30f-265144f8dd40\",\n            \"name\": \"Jane\",\n            \"email\": \"jane@email.com\",\n            \"password\": \"$2b$10$E3snV5u4LTgGahFLYGPcw.OcOB6Z3FfmdQIjOWjuAhqAN0Ua1/Kxy\",\n            \"role\": \"ADMIN\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2025-01-31T14:43:51.056Z\",\n            \"updatedAt\": \"2025-02-01T16:04:56.684Z\",\n            \"isVerified\": true,\n            \"loginCount\": 0,\n            \"lastSeen\": \"2025-02-01T14:49:37.484Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Inactive Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ADMIN_JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users-reports/inactive-users?page=1&limit=50",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users-reports",
+								"inactive-users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "50"
+								},
+								{
+									"key": "lastSeen",
+									"value": "2025-01-01T00:00:00.000Z",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Inactive Users Using Date Filter",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users-reports/inactive-users?page=1&limit=50&lastSeen=2025-01-01T00:00:00.000Z",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users-reports",
+										"inactive-users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										},
+										{
+											"key": "lastSeen",
+											"value": "2025-01-01T00:00:00.000Z"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"status\": true,\r\n    \"message\": \"Users fetched successfully\",\r\n    \"pagination\": {\r\n        \"total_pages\": 1,\r\n        \"total_records\": 1,\r\n        \"page\": 1,\r\n        \"limit\": 50\r\n    },\r\n    \"data\": []\r\n}"
+						},
+						{
+							"name": "Inactive Users With Returned Data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users-reports/inactive-users?page=1&limit=50",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users-reports",
+										"inactive-users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "50"
+										},
+										{
+											"key": "lastSeen",
+											"value": "2025-01-01T00:00:00.000Z",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Users fetched successfully\",\n    \"pagination\": {\n        \"total_pages\": 1,\n        \"total_records\": 1,\n        \"page\": 1,\n        \"limit\": 50\n    },\n    \"data\": [\n        {\n            \"id\": \"8e0d4f21-30fd-465e-b30f-265144f8dd40\",\n            \"name\": \"Jane\",\n            \"email\": \"jane@email.com\",\n            \"password\": \"$2b$10$E3snV5u4LTgGahFLYGPcw.OcOB6Z3FfmdQIjOWjuAhqAN0Ua1/Kxy\",\n            \"role\": \"ADMIN\",\n            \"deletedAt\": null,\n            \"createdAt\": \"2025-01-31T14:43:51.056Z\",\n            \"updatedAt\": \"2025-02-01T16:04:56.684Z\",\n            \"isVerified\": true,\n            \"loginCount\": 0,\n            \"lastSeen\": \"2025-02-01T14:49:37.484Z\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
