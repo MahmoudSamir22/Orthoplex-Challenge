@@ -1,6 +1,6 @@
 import prisma from "../../prisma/client";
 import ApiError from "../utils/ApiError";
-import IUser, { UserQuery } from "../types/user";
+import IUser, { UpdateUser, UserQuery } from "../types/user";
 import IUserService from "../interfaces/user.service";
 import { PaginateType } from "../types/pagination";
 import { paginate } from "../utils/pagination";
@@ -64,7 +64,7 @@ class UserService implements IUserService {
    * @throws  {Error} If the database operation fails.
    */
 
-  async updateUserDetails(userId: string, data: Signup): Promise<IUser> {
+  async updateUserDetails(userId: string, data: UpdateUser): Promise<IUser> {
     await this.checkUserExistence(userId);
     return prisma.user.update({
       where: {

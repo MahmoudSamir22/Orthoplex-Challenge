@@ -25,4 +25,4 @@ export type UserQuery = Partial<
   }
 >;
 
-export type UpdateUser = Pick<IUser, "name" | "email" | "role">;
+export type UpdateUser = Partial<Pick<IUser, "name" | "email" | "role">>;
